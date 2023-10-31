@@ -1,0 +1,320 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+	    display: none;
+	}
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-backspace-visibility: hidden;
+	backface-visibility: hidden;
+	outline: none;
+
+	&:before, &:after {
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		outline: none;
+	}
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+@import '../static/styles/font/Inter/stylesheet.css';
+
+$blue_20:#EAEDFF;
+$blue_20_hover:#E5E8FA;
+$blue_50:#91A0EF;
+$blue_80:#2B47DA;
+$blue_80_hover:#1D39C9;
+$black_10:#EDEDED;
+$black_25:#C9C9C9;
+$black_50:#7B7B7B;
+$black_75:#282828;
+$black_100:#000000;
+
+@mixin generate($prefix, $property) {
+  // List of sizes to generate for each
+  $sizes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 35, 50];
+  // Spacing to multiply the sizes by
+  $spacing: 4px;
+  
+  // Loop through all of the sizes(we use @for rather than @each, as we want access to the index)
+  @for $i from 1 through length($sizes) {
+    // Get the size for the current index
+    $size: nth($sizes, $i);
+    
+    // Create the rule
+    .#{$prefix}-#{$i - 1} {
+      #{$property}: $spacing * $size;
+    }
+  }
+}
+$rules: [
+  [mrl, margin-left],
+  [mrt, margin-top],
+  [mrb, margin-bottom],
+  [mrr, margin-right],
+  [pdl, padding-left],
+  [pdt, padding-top],
+  [pdb, padding-bottom],
+  [pdr, padding-right],
+  
+];
+
+@each $item in $rules {
+  @include generate(nth($item, 1), nth($item, 2));
+}
+
+a{
+  text-decoration: none!important;
+}
+//colors
+.blue_20 {
+  color: $blue_20;
+
+  &_bg {
+    background-color: $blue_20;
+  }
+}
+
+.blue_20_hover {
+  color: $blue_20_hover;
+
+  &_bg {
+    background-color: $blue_20_hover;
+  }
+}
+
+.blue_50 {
+  color: $blue_50;
+
+  &_bg {
+    background-color: $blue_50;
+  }
+}
+
+.blue_80 {
+  color: $blue_80;
+
+  &_bg {
+    background-color: $blue_80;
+  }
+}
+
+.blue_80_hover {
+  color: $blue_80_hover;
+
+  &_bg {
+    background-color: $blue_80_hover;
+  }
+}
+
+.black_10 {
+  color: $black_10;
+
+  &_bg {
+    background-color: $black_10;
+  }
+}
+
+.black_25 {
+  color: $black_25;
+
+  &_bg {
+    background-color: $black_25;
+  }
+}
+
+.black_50 {
+  color: $black_50;
+
+  &_bg {
+    background-color: $black_50;
+  }
+}
+
+.black_75 {
+  color: $black_75;
+
+  &_bg {
+    background-color: $black_75;
+  }
+}
+
+.black_100 {
+  color: $black_100;
+
+  &_bg {
+    background-color: $black_100;
+  }
+}
+
+.desktop-only {
+  display: block; // Отображается по умолчанию
+}
+
+.mobile-only {
+  display: none; // Не отображается по умолчанию
+}
+
+// Медиа-запрос с максимальной шириной 768px для мобильных устройств
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none; // Не отображается на устройствах с шириной экрана до 768px
+  }
+
+  .mobile-only {
+    display: block; // Отображается на устройствах с шириной экрана до 768px
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter';
+}
+
+// headers
+
+h2.heading {
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+// typograph
+
+.text {
+  &_base {
+    &2 {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+
+      &_bold {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        font-weight: 600;
+      }
+    }
+
+    &1 {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+
+      &_bold {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 140%;
+      }
+    }
+  }
+}
+
+// main page
+
+
+
+.promo-row {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.image-box img {
+  max-width: 100%;
+}
+
+.image-box,
+.info-box {
+  flex-basis: calc(50% - 20px);
+}
+
+.image-box.isEven {
+  order: 1;
+}
+
+.promo-container.row {
+  display: flex;
+  flex-flow: column;
+  gap: 80px;
+}
+
+a.promo-link:last-of-type {
+  text-decoration: none;
+  padding: 20px 28px;
+  background: $blue_20;
+  border-radius: 12px;
+}
+.image-box.rounded-6 {
+  border-radius: 24px;
+  overflow: hidden;
+}

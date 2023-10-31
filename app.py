@@ -11,6 +11,11 @@ with app.app_context():
     def index():
         return render_template('index.html')
     
+
+    @app.route('/<int:id>')
+    def other():
+        return render_template('index.html')
+    
     @app.route('/care-service', methods=['POST'])
     def care_service():
         try:

@@ -1,0 +1,41 @@
+[{
+        "slide": "rassrochka.webp",
+        "slide_m": "rassrochka-mobile.webp",
+        "alt": "rassrochka",
+        "link": "rassrochka",
+        "sort": 4,
+        "status": 1
+    },
+    {
+        "slide": "5-halyk.webp",
+        "slide_m": "5-halyk-mobile.webp",
+        "alt": "5-halyk",
+        "link": "5-halyk",
+        "sort": 1,
+        "status": 1
+    },
+    {
+        "slide": "aport.webp",
+        "slide_m": "aport-mobile.webp",
+        "alt": "aport",
+        "link": "aport",
+        "sort": 5,
+        "status": 1
+    },
+    {
+        "slide": "bosch-i-finish.webp",
+        "slide_m": "bosch-i-finish-mobile.webp",
+        "alt": "bosch-i-finish",
+        "link": "bosch-i-finish",
+        "sort": 3,
+        "status": 1
+    },
+    {
+        "slide": "banner-50000.webp",
+        "slide_m": "banner-50000-mobile.webp",
+        "alt": "50000",
+        "link": "50000",
+        "sort": 2,
+        "status": 1
+    }
+]

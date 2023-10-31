@@ -2,10 +2,15 @@
 
 {% block head %}
     <title>Samsung home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer="defer" src="{{ url_for('static', filename='js/chunk-vendors.8fd29930.js') }}"></script>
+    <script defer="defer" src="{{ url_for('static', filename='js/app.72ac843f.js') }}"></script>
+    <link href="{{ url_for('static', filename='css/chunk-vendors.dc0b57d2.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/app.8d588a44.css') }}" rel="stylesheet">
 {% endblock %}
 
 
 {% block body %}
-    <h1>Samsung Home</h1>
+<noscript><strong>We're sorry but samsung-standalone doesn't work properly without JavaScript enabled. Please
+    enable it to continue.</strong></noscript>
+<div id="app"></div>
 {% endblock %}
