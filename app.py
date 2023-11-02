@@ -19,11 +19,19 @@ with app.app_context():
         return render_template('index.html')
     
 
-    @app.route('/<int:id>')
-    def other():
+    @app.route('/<string:id>/')
+    def other(id):
         return render_template('index.html')
     
-    @app.route('/care-service', methods=['GET','POST'])
+    @app.route('/promo/')
+    def promo():
+        return render_template('index.html')
+    
+    @app.route('/promo/<string:id>/')
+    def promo_id(id):
+        return render_template('index.html')
+    
+    @app.route('/care-service/', methods=['GET','POST'])
     def care_service():
         try:
             if request.method == 'POST':
