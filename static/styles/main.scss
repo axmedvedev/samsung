@@ -1,185 +1,221 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+@mixin generate($prf, $propr) {
+  $sz: 0 5 10 15 20 25 30 35 40 45 50 55 60 65 70;
+  $spac: 4px;
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
+  @for $i from 1 through length($sz) {
+    $size: nth($sz, $i);
 
-html {
-    box-sizing: border-box;
-
-    &::-webkit-scrollbar {
-	    display: none;
-	}
-}
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-backspace-visibility: hidden;
-	backface-visibility: hidden;
-	outline: none;
-
-	&:before, &:after {
-		-webkit-backface-visibility: hidden;
-		backface-visibility: hidden;
-		outline: none;
-	}
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-@import '../static/styles/font/Inter/stylesheet.css';
-
-$blue_20:#EAEDFF;
-$blue_20_hover:#E5E8FA;
-$blue_50:#91A0EF;
-$blue_80:#2B47DA;
-$blue_80_hover:#1D39C9;
-$black_10:#EDEDED;
-$black_25:#C9C9C9;
-$black_50:#7B7B7B;
-$black_75:#282828;
-$black_100:#000000;
-
-@mixin generate($prefix, $property) {
-  // List of sizes to generate for each
-  $sizes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 35, 50];
-  // Spacing to multiply the sizes by
-  $spacing: 4px;
-  
-  // Loop through all of the sizes(we use @for rather than @each, as we want access to the index)
-  @for $i from 1 through length($sizes) {
-    // Get the size for the current index
-    $size: nth($sizes, $i);
-    
-    // Create the rule
-    .#{$prefix}-#{$i - 1} {
-      #{$property}: $spacing * $size;
+    .#{$prf}-#{$size} {
+      #{$propr}: $spac * $size;
     }
   }
 }
-$rules: [
-  [mrl, margin-left],
-  [mrt, margin-top],
-  [mrb, margin-bottom],
-  [mrr, margin-right],
-  [pdl, padding-left],
-  [pdt, padding-top],
-  [pdb, padding-bottom],
-  [pdr, padding-right],
-  
-];
+
+$rules: ((mrl, margin-left), (mrt, margin-top), (mrb, margin-bottom), (mrr, margin-right), (pdl, padding-left), (pdt, padding-top), (pdb, padding-bottom), (pdr, padding-right));
 
 @each $item in $rules {
-  @include generate(nth($item, 1), nth($item, 2));
+  $rule: nth($item, 1);
+  $property: nth($item, 2);
+  @include generate($rule, $property);
 }
 
-a{
-  text-decoration: none!important;
+@import "../static/styles/font/Inter/stylesheet.css";
+$blue_20: #eaedff;
+$blue_20_hover: #e5e8fa;
+$blue_50: #91a0ef;
+$blue_80: #2b47da;
+$blue_80_hover: #1d39c9;
+$black_10: #ededed;
+$black_25: #c9c9c9;
+$black_50: #7b7b7b;
+$black_75: #282828;
+$black_100: #000000;
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
+
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html {
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-backspace-visibility: hidden;
+  backface-visibility: hidden;
+  outline: none;
+
+  &:before,
+  &:after {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    outline: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a {
+  text-decoration: none !important;
+}
+
 //colors
-.blue_20 {
-  color: $blue_20;
-
-  &_bg {
-    background-color: $blue_20;
-  }
-}
-
-.blue_20_hover {
-  color: $blue_20_hover;
-
-  &_bg {
-    background-color: $blue_20_hover;
-  }
-}
-
-.blue_50 {
-  color: $blue_50;
-
-  &_bg {
-    background-color: $blue_50;
-  }
-}
-
-.blue_80 {
-  color: $blue_80;
-
-  &_bg {
-    background-color: $blue_80;
-  }
-}
-
-.blue_80_hover {
-  color: $blue_80_hover;
-
-  &_bg {
-    background-color: $blue_80_hover;
-  }
-}
-
 .black_10 {
-  color: $black_10;
+  color: $black_10 !important;
 
   &_bg {
-    background-color: $black_10;
+    background-color: $black_10 !important;
   }
 }
 
 .black_25 {
-  color: $black_25;
+  color: $black_25 !important;
 
   &_bg {
     background-color: $black_25;
@@ -187,26 +223,66 @@ a{
 }
 
 .black_50 {
-  color: $black_50;
+  color: $black_50 !important;
 
   &_bg {
-    background-color: $black_50;
+    background-color: $black_50 !important;
   }
 }
 
 .black_75 {
-  color: $black_75;
+  color: $black_75 !important;
 
   &_bg {
-    background-color: $black_75;
+    background-color: $black_75 !important;
   }
 }
 
 .black_100 {
-  color: $black_100;
+  color: $black_100 !important;
 
   &_bg {
-    background-color: $black_100;
+    background-color: $black_100 !important;
+  }
+}
+
+.blue_20 {
+  color: $blue_20 !important;
+
+  &_bg {
+    background-color: $blue_20 !important;
+  }
+}
+
+.blue_20_hover {
+  color: $blue_20_hover !important;
+
+  &_bg {
+    background-color: $blue_20_hover !important;
+  }
+}
+
+.blue_50 {
+  color: $blue_50 !important;
+
+  &_bg {
+    background-color: $blue_50 !important;
+  }
+}
+
+.blue_80 {
+  color: $blue_80 !important;
+
+  &_bg {
+    background-color: $blue_80 !important;
+  }
+}
+
+.blue_80_hover {
+  color: $blue_80_hover !important;
+
+  &_bg {
+    background-color: $blue_80_hover !important;
   }
 }
 
@@ -219,7 +295,7 @@ a{
 }
 
 // Медиа-запрос с максимальной шириной 768px для мобильных устройств
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .desktop-only {
     display: none; // Не отображается на устройствах с шириной экрана до 768px
   }
@@ -231,36 +307,76 @@ a{
 
 body {
   margin: 0;
-  font-family: 'Inter';
+  font-family: "Inter";
 }
 
 // headers
+h1.heading {
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
 
+  @media (max-width: 1366px) {
+    font-size: 36px;
+  }
+
+  @media (max-width: 900px) {
+    font-size: 28px;
+  }
+}
+
+// headers
 h2.heading {
   font-size: 44px;
   font-style: normal;
   font-weight: 600;
   line-height: 120%;
+
+  @media (max-width: 1366px) {
+    font-size: 36px;
+  }
+
+  @media (max-width: 900px) {
+    font-size: 28px;
+  }
+}
+
+h3 {
+  &.promoItem-title {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+
+    @media (max-width: 1366px) {
+      font-size: 30px;
+    }
+
+    @media (max-width: 900px) {
+      font-size: 24px;
+    }
+  }
+
+  &.header {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+
+    @media (max-width: 1366px) {
+      font-size: 30px;
+    }
+
+    @media (max-width: 900px) {
+      font-size: 24px;
+    }
+  }
 }
 
 // typograph
-
 .text {
   &_base {
-    &2 {
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 140%;
-
-      &_bold {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        font-weight: 600;
-      }
-    }
-
     &1 {
       font-size: 18px;
       font-style: normal;
@@ -272,15 +388,74 @@ h2.heading {
         font-style: normal;
         font-weight: 600;
         line-height: 140%;
+
+        @media (max-width: 1366px) {
+          font-size: 17px;
+        }
+
+        @media (max-width: 900px) {
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 1366px) {
+        font-size: 17px;
+      }
+
+      @media (max-width: 900px) {
+        font-size: 16px;
+      }
+    }
+
+    &2 {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+
+      &_bold {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 140%;
+
+        @media (max-width: 1366px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 900px) {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 1366px) {
+        font-size: 15px;
+      }
+
+      @media (max-width: 900px) {
+        font-size: 14px;
+      }
+    }
+
+    &3 {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 140%;
+      color: #fff;
+
+      @media (max-width: 1366px) {
+        font-size: 13px;
+      }
+
+      @media (max-width: 900px) {
+        font-size: 12px;
       }
     }
   }
 }
 
 // main page
-
-
-
 .promo-row {
   align-items: center;
   display: flex;
@@ -314,6 +489,7 @@ a.promo-link:last-of-type {
   background: $blue_20;
   border-radius: 12px;
 }
+
 .image-box.rounded-6 {
   border-radius: 24px;
   overflow: hidden;

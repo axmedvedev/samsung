@@ -1,40 +1,49 @@
-[{
-        "slide": "rassrochka.webp",
-        "slide_m": "rassrochka-mobile.webp",
-        "alt": "rassrochka",
-        "link": "rassrochka",
+[
+    {
+        "slide": "delivery.webp",
+        "slide_m": "delivery_mobile.webp",
+        "alt": "delivery",
+        "link": "",
         "sort": 4,
         "status": 1
     },
     {
-        "slide": "5-halyk.webp",
-        "slide_m": "5-halyk-mobile.webp",
+        "slide": "halyk-bonus.webp",
+        "slide_m": "halyk-bonus_mobile.webp",
         "alt": "5-halyk",
-        "link": "5-halyk",
+        "link": "",
         "sort": 1,
         "status": 1
     },
     {
-        "slide": "aport.webp",
-        "slide_m": "aport-mobile.webp",
-        "alt": "aport",
-        "link": "aport",
+        "slide": "halyk-rassrochka.webp",
+        "slide_m": "halyk-rassrochka_mobile.webp",
+        "alt": "halyk-rassrochka",
+        "link": "halyk-rassrochka",
         "sort": 5,
         "status": 1
     },
     {
-        "slide": "bosch-i-finish.webp",
-        "slide_m": "bosch-i-finish-mobile.webp",
-        "alt": "bosch-i-finish",
-        "link": "bosch-i-finish",
+        "slide": "kaspi-juma.webp",
+        "slide_m": "kaspi-juma_mobile.webp",
+        "alt": "kaspi-juma",
+        "link": "kaspi-juma",
         "sort": 3,
         "status": 1
     },
     {
-        "slide": "banner-50000.webp",
-        "slide_m": "banner-50000-mobile.webp",
-        "alt": "50000",
-        "link": "50000",
+        "slide": "kaspi-rassrochka.webp",
+        "slide_m": "kaspi-rassrochka_mobile.webp",
+        "alt": "kaspi-rassrochka",
+        "link": "kaspi-rassrochka",
+        "sort": 2,
+        "status": 1
+    },
+    {
+        "slide": "trade-in.webp",
+        "slide_m": "trade-in_mobile.webp",
+        "alt": "trade-in",
+        "link": "trade-in",
         "sort": 2,
         "status": 1
     }
