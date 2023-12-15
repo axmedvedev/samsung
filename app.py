@@ -1,8 +1,9 @@
 from flask import Flask, render_template, url_for
-from flask_sqlalchemy import SQLAlchemy
 from flask import request
 import requests
 from flask_cors import CORS
+from flask.json import jsonify
+from static.config import version
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -14,6 +15,11 @@ CORS(app, origins=[
     
 
 with app.app_context():
+
+    @app.route('/version')
+    def get_version():
+        return jsonify(v=version)
+
     @app.route('/')
     def index():
         return render_template('index.html')
