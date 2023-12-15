@@ -37,6 +37,11 @@ with app.app_context():
     def promo_id(id):
         return render_template('index.html')
     
+    @app.route('/product/<string:id>/')
+    def product_id(id):
+        return render_template('index.html')
+    
+
     @app.route('/care-service/', methods=['GET','POST'])
     def care_service():
         try:
