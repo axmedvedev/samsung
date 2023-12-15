@@ -1,16 +1,52 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block head %}
+<title>Фирменный магазин Samsung</title>
+<meta
+	name="keywords"
+	content="Samsung, Samsung Dostyk Plaza, Фирменный магазин Samsung, Samsung Казахстан, Galaxy, Bespoke, Fold, Flip" />
+<meta property="og:url" content="https://smbrand.kz/" />
+<link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+<script
+	defer="defer"
+	src="{{ url_for('static', filename='js/chunk-vendors.451c4cb1.js') }}"></script>
+<script
+	defer="defer"
+	src="{{ url_for('static', filename='js/app.6fb38dd6.js') }}"></script>
+<link
+	href="{{ url_for('static', filename='css/app.afcca58e.css') }}"
+	rel="stylesheet" />
+<link
+	href="{{ url_for('static', filename='css/chunk-vendors.cd72bf76.css') }}"
+	rel="stylesheet" />
+<!-- Google Tag Manager -->
+<script>
+	(function (w, d, s, l, i) {
+		w[l] = w[l] || [];
+		w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+		var f = d.getElementsByTagName(s)[0],
+			j = d.createElement(s),
+			dl = l != "dataLayer" ? "&l=" + l : "";
+		j.async = true;
+		j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+		f.parentNode.insertBefore(j, f);
+	})(window, document, "script", "dataLayer", "GTM-K2RHM3XP");
+</script>
+<!-- End Google Tag Manager -->
 
-{% block head %}
-    <title>Samsung home</title>
-    <script defer="defer" src="{{ url_for('static', filename='js/chunk-vendors.fed2a668.js') }}"></script>
-    <script defer="defer" src="{{ url_for('static', filename='js/app.74c50de4.js') }}"></script>
-    <link href="{{ url_for('static', filename='css/chunk-vendors.cd72bf76.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/app.97d0b18b.css') }}" rel="stylesheet">
-{% endblock %}
-
-
-{% block body %}
-<noscript><strong>We're sorry but samsung-standalone doesn't work properly without JavaScript enabled. Please
-    enable it to continue.</strong></noscript>
+<!-- Google Tag Manager (noscript) -->
+<noscript
+	><iframe
+		src="https://www.googletagmanager.com/ns.html?id=GTM-K2RHM3XP"
+		height="0"
+		width="0"
+		style="display: none; visibility: hidden"></iframe
+></noscript>
+<!-- End Google Tag Manager (noscript) -->
+{% endblock %} {% block body %}
+<noscript
+	><strong
+		>We're sorry but samsung-standalone doesn't work properly without
+		JavaScript enabled. Please enable it to continue.</strong
+	></noscript
+>
 <div id="app"></div>
 {% endblock %}
