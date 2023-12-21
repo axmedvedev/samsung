@@ -20,13 +20,13 @@ with app.app_context():
         return render_template('index.html')
 
 
-    @app.route('/promo/')
-    def promo():
-        return render_template('index.html')
-
-
     @app.route('/promo/<string:target>/')
     def promo_id(target):
+        return render_template('index.html')
+    
+    
+    @app.route('/product/<string:target>/')
+    def product_id(target):
         return render_template('index.html')
     
     
