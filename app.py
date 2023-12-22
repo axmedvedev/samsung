@@ -32,8 +32,10 @@ with app.app_context():
     
     @app.route('/api/promo/<string:target>/')
     def promo_id_api(target):
-        print(Main.query.filter(Main.link.like(f"%promo/{target}%")))
-        return jsonify(serializer(Main.query.filter(Main.link.like(f"%promo/{target}%")).all()))
+        return jsonify(compileData(serializer(Main.query
+                                  .join(PromoImage, Main.images, isouter=True)
+                                  .add_columns(PromoImage.image.label("image_name"))
+                                  .filter(Main.link.like(f"%promo/{target}%")).all())))
 
 
     @app.route('/care-service/', methods=['GET','POST'])
