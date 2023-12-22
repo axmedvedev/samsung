@@ -20,7 +20,7 @@ migrate = Migrate(app, db)
 
 class Main(db.Model):
     __tablename__ = 'main'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     status = db.Column(db.Integer)
     button = db.Column(db.Integer)
     link = db.Column(db.String(255))
@@ -38,6 +38,7 @@ class Main(db.Model):
     description = db.Column(db.Text())
     content = db.Column(db.Text())
     images = db.relationship('PromoImage', back_populates='main', lazy='dynamic')
+    slider_status = db.Column(db.Integer)
 
     def __repr__(self) -> str:
         return self.name
@@ -45,7 +46,7 @@ class Main(db.Model):
 
 class Product(db.Model):
     __tablename__ = 'product'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     status = db.Column(db.Integer)
     link = db.Column(db.String(255))
     desktop_image = db.Column(db.String(255))
@@ -62,7 +63,7 @@ class Product(db.Model):
 
 class ProductImage(db.Model):
     __tablename__ = 'product_image'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     image = db.Column(db.String(255))
     product = db.relationship('Product', back_populates='images')
@@ -73,7 +74,7 @@ class ProductImage(db.Model):
 
 class Carousel(db.Model):
     __tablename__ = 'carousel'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     slide = db.Column(db.String(255))
     alt = db.Column(db.String(255))
     link = db.Column(db.String(255))
@@ -86,7 +87,7 @@ class Carousel(db.Model):
 
 class Slider(db.Model):
     __tablename__ = 'slider'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     slide = db.Column(db.String(255))
     slide_m = db.Column(db.String(255))
     alt = db.Column(db.String(255))
@@ -100,7 +101,7 @@ class Slider(db.Model):
 
 class PromoImage(db.Model):
     __tablename__ = 'promo_image'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     main_id = db.Column(db.Integer, db.ForeignKey('main.id'))
     image = db.Column(db.String(255))
     main = db.relationship('Main', back_populates='images')
