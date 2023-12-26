@@ -1,42 +1,30 @@
-import os
-from flask import request
+from flask import Response, render_template, url_for, jsonify, request
+from mongo import MongoDB
 import requests
 from models import *
-import logging
-from flask import Response
-
-BASEDIR = os.path.dirname(os.path.realpath(__file__))
-
-logging.basicConfig(level=logging.WARNING,
-                    filename=os.path.join(BASEDIR, 'app.log'),
-                    format="%(asctime)s %(levelname)s %(message)s")
-
-
-
+from utils import *
 
 with app.app_context():
+    #base routing
     @app.route('/')
     def index():
         return render_template('index.html')
 
-
     @app.route('/promo/<string:target>/')
     def promo_id(target):
         return render_template('index.html')
-    
-    
+
     @app.route('/product/<string:target>/')
     def product_id(target):
         return render_template('index.html')
-    
-    
-    @app.route('/api/promo/<string:target>/')
-    def promo_id_api(target):
-        return jsonify(compileData(serializer(Main.query
-                                  .join(PromoImage, Main.images, isouter=True)
-                                  .add_columns(PromoImage.image.label("image_name"))
-                                  .filter(Main.link.like(f"%promo/{target}%")).all())))
 
+    @app.route('/robots.txt')
+    def robots_txt():
+        return Response("User-agent: *\nAllow: *", mimetype='text/plain')
+
+    @app.route('/<string:id>/')
+    def other(id):
+        return render_template('index.html')
 
     @app.route('/care-service/', methods=['GET','POST'])
     def care_service():
@@ -58,15 +46,16 @@ with app.app_context():
         except Exception as e:
             return f'{{"status": "error", "message": "{e}"}}'
 
+
+
+    #from Alchemy
     @app.route('/api/slider/')
     def sliders():
         return jsonify(serializer(Slider.query.all()))
 
-
     @app.route('/api/carousel/')
     def carousel():
         return jsonify(serializer(Carousel.query.all()))
-
 
     @app.route('/api/main/')
     def main():
@@ -75,7 +64,6 @@ with app.app_context():
                                               .add_columns(PromoImage.image.label("image_name"))
                                               .all())))
 
-
     @app.route('/api/product/')
     def product():
         return jsonify(compileData(serializer(Product.query
@@ -83,62 +71,44 @@ with app.app_context():
                                               .add_columns(ProductImage.image.label("image_name"))
                                               .all())))
 
+    @app.route('/api/promo/<string:target>/')
+    def promo_id_api(target):
+        return jsonify(compileData(serializer(Main.query
+                                  .join(PromoImage, Main.images, isouter=True)
+                                  .add_columns(PromoImage.image.label("image_name"))
+                                  .filter(Main.link.like(f"%promo/{target}%")).all())))
 
-    @app.route('/robots.txt')
-    def robots_txt():
-        return Response("User-agent: *\nAllow: *", mimetype='text/plain')
 
-
-    @app.route('/<string:id>/')
-    def other(id):
-        return render_template('index.html')
+    #from MONGO
+    @app.route('/api/v2/main/')
+    def api_main():
+        db = MongoDB(collection='main', config=Config.MONGO)
+        data = list(db.get_all())
+        return jsonify(data)
     
-
-    def serializer(data):
-        try:
-            if not data:
-                return []
-            
-            if isinstance(data, (bool, str, int, float, type(None))):
-                return data
-
-            if isinstance(data, list):
-                result = []
-                for item in data:
-                    result.append(serializer(item))
-
-                return result
-
-            try:
-                return {key: value for key, value in data.__dict__.items() if not key.startswith('_')}
-            except:
-                result = {}
-                for key, value in data._asdict().items():
-                    if not isinstance(value, (bool, str, int, float, type(None))):
-                        result.update(serializer(value))
-                    else:
-                        result.update({key: value})
-                return result
-
-        except Exception as e:
-            logging.error(e)
-            return []
-
-
-    def compileData(rows):
-        compiled_rows = []
-        for row in rows:
-            current_row = next((item for item in compiled_rows if row['id'] == item['id']), None)
-            if current_row is None:
-                image = [row['image_name']] if row['image_name'] is not None else []
-                row.update({'carousel': image})
-                row.pop('image_name')
-                compiled_rows.append(row)
-            else:
-                if row['image_name'] is not None:
-                    current_row['carousel'].append(row['image_name'])
-        return compiled_rows
-
+    @app.route('/api/v2/promo/<string:target>/')
+    def api_main_detail(target):
+        db = MongoDB(collection='main', config=Config.MONGO)
+        data = db.get_one('link', f"promo/{target}")
+        return jsonify(data)
+    
+    @app.route('/api/v2/product/')
+    def api_product():
+        db = MongoDB(collection='product', config=Config.MONGO)
+        data = list(db.get_all())
+        return jsonify(data)
+    
+    @app.route('/api/v2/carousel/')
+    def api_carousel():
+        db = MongoDB(collection='carousel', config=Config.MONGO)
+        data = list(db.get_all())
+        return jsonify(data)
+    
+    @app.route('/api/v2/slider/')
+    def api_slider():
+        db = MongoDB(collection='slider', config=Config.MONGO)
+        data = list(db.get_all())
+        return jsonify(data)
 
 
 if __name__ == "__main__":
