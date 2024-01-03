@@ -3,6 +3,8 @@ from mongo import MongoDB
 import requests
 from models import *
 from utils import *
+from bson import json_util
+import json
 
 with app.app_context():
     #base routing
@@ -80,36 +82,60 @@ with app.app_context():
 
 
     #from MONGO
-    @app.route('/api/v2/main/')
-    def api_main():
-        db = MongoDB(collection='main', config=Config.MONGO)
-        data = list(db.get_all())
-        return jsonify(data)
-    
+    @app.route('/api/v2/promo/')
     @app.route('/api/v2/promo/<string:target>/')
-    def api_main_detail(target):
-        db = MongoDB(collection='main', config=Config.MONGO)
-        data = db.get_one('link', f"promo/{target}")
-        return jsonify(data)
+    def api_promo(target=None):
+        db = MongoDB(collection='promo', config=Config.MONGO)
+        if target is None:
+            data = db.get_all()
+        else:
+            data = db.join([
+                {
+                    '$lookup': {
+                        'from': 'promo_description',
+                        'localField': '_id',
+                        'foreignField': 'promo_id',
+                        'as': 'promo_description',
+                        'pipeline': [
+                            {
+                                '$project': {
+                                    '_id': 0,
+                                    'promo_id': 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    '$match': {
+                        'link': f"promo/{target}"
+                    }
+                },
+                {
+                    '$project': {
+                        '_id': 0
+                    }
+                }
+            ])
+        return ResponseJSON(data)
     
     @app.route('/api/v2/product/')
-    def api_product():
+    @app.route('/api/v2/product/<string:target>/')
+    def api_product(target=None):
         db = MongoDB(collection='product', config=Config.MONGO)
-        data = list(db.get_all())
-        return jsonify(data)
+        if target is None:
+            data = db.get_all()
+        else:
+            data = db.get_one('link', f"product/{target}")
+        return ResponseJSON(data)
     
-    @app.route('/api/v2/carousel/')
-    def api_carousel():
-        db = MongoDB(collection='carousel', config=Config.MONGO)
-        data = list(db.get_all())
-        return jsonify(data)
-    
-    @app.route('/api/v2/slider/')
-    def api_slider():
-        db = MongoDB(collection='slider', config=Config.MONGO)
-        data = list(db.get_all())
-        return jsonify(data)
 
+    def ResponseJSON(data):
+        return Response(
+            json.dumps(data,
+                       default=str,
+                       indent=4),
+            mimetype='application/json')
 
 if __name__ == "__main__":
     app.run(debug=True)
