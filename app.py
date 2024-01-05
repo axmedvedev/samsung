@@ -130,6 +130,45 @@ with app.app_context():
         return ResponseJSON(data)
     
 
+
+    @app.route('/api/v2/page/')
+    @app.route('/api/v2/page/<string:target>/')
+    def api_promo(target=None):
+        db = MongoDB(collection='page', config=Config.MONGO)
+        if target is None:
+            data = db.get_all()
+        else:
+            data = db.join([
+                {
+                    '$lookup': {
+                        'from': 'page_description',
+                        'localField': '_id',
+                        'foreignField': 'page_id',
+                        'as': 'page_description',
+                        'pipeline': [
+                            {
+                                '$project': {
+                                    '_id': 0,
+                                    'page_id': 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    '$match': {
+                        'link': f"{target}"
+                    }
+                },
+                {
+                    '$project': {
+                        '_id': 0
+                    }
+                }
+            ])
+        return ResponseJSON(data)
+    
+
     def ResponseJSON(data):
         return Response(
             json.dumps(data,
