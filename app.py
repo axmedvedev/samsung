@@ -133,7 +133,7 @@ with app.app_context():
 
     @app.route('/api/v2/page/')
     @app.route('/api/v2/page/<string:target>/')
-    def api_promo(target=None):
+    def api_page(target=None):
         db = MongoDB(collection='page', config=Config.MONGO)
         if target is None:
             data = db.get_all()
