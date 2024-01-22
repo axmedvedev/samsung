@@ -28,7 +28,7 @@ with app.app_context():
     def other(id):
         return render_template('index.html')
 
-    @app.route('/care-service/', methods=['GET','POST'])
+    @app.route('/care-service', methods=['GET','POST'])
     def care_service():
         try:
             if request.method == 'POST':
@@ -40,6 +40,25 @@ with app.app_context():
                     f'&text={message}'
                     f'&parse_mode=HTML'
                     f'&disable_web_page_preview=True'
+                )
+                requests.get(f"https://api.telegram.org/bot{token_bot}/sendMessage?{query_string}")
+                return b'{"status": "ok"}'
+            else:
+                return render_template('index.html')
+        except Exception as e:
+            return f'{{"status": "error", "message": "{e}"}}'
+        
+
+    @app.route('/preorder', methods=['GET','POST'])
+    def preorder():
+        try:
+            if request.method == 'POST':
+                request_data = request.get_json()
+                message = f"Имя: {request_data['name']}\nТелефон: {request_data['phone']}\nГород: {request_data['city']}\nМодель: {request_data['model']}"
+                token_bot = '6807645622:AAH7Qm524MV5Mjyw-qSRb2CsZxic3grlUpE'
+                query_string = (
+                    f'&chat_id=-4136893703'
+                    f'&text={message}'
                 )
                 requests.get(f"https://api.telegram.org/bot{token_bot}/sendMessage?{query_string}")
                 return b'{"status": "ok"}'
