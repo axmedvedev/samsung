@@ -1,11 +1,11 @@
 from pymongo import MongoClient
-from config import *
+from config import Config
 
 class MongoDB(object):
-    def __init__(self, collection, endpoint):
-        print(endpoint)
+    def __init__(self, collection):
+        print(Config.MONGO_ENDPOINT)
         try:
-            self._client = MongoClient(endpoint)
+            self._client = MongoClient(Config.MONGO_ENDPOINT)
             self._collection = self._client['samsung'][collection]
         except Exception as e:
             logging.error(f"[con] - {e}")

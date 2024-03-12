@@ -2,7 +2,7 @@ from flask import Response, render_template, url_for, request
 from mongo import MongoDB
 import requests
 import json
-from config import Config, app
+from config import app
 
 with app.app_context():
     #base routing
@@ -70,7 +70,7 @@ with app.app_context():
     @app.route('/api/v2/promo/')
     @app.route('/api/v2/promo/<string:target>/')
     def api_promo(target=None):
-        db = MongoDB(collection='promo', endpoint=Config.MONGO_ENDPOINT)
+        db = MongoDB(collection='promo')
         if target is None:
             data = db.get_all()
         else:
@@ -107,7 +107,7 @@ with app.app_context():
     @app.route('/api/v2/product/')
     @app.route('/api/v2/product/<string:target>/')
     def api_product(target=None):
-        db = MongoDB(collection='product', endpoint=Config.MONGO_ENDPOINT)
+        db = MongoDB(collection='product')
         if target is None:
             data = db.get_all()
         else:
@@ -119,7 +119,7 @@ with app.app_context():
     @app.route('/api/v2/page/')
     @app.route('/api/v2/page/<string:target>/')
     def api_page(target=None):
-        db = MongoDB(collection='page', endpoint=Config.MONGO_ENDPOINT)
+        db = MongoDB(collection='page')
         if target is None:
             data = db.get_all()
         else:
