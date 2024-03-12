@@ -21,5 +21,5 @@ CORS(app, origins=[
 ])
 
 logging.basicConfig(level=logging.WARNING,
-                    filename=os.path.join(BASEDIR, 'app.log'),
+                    filename=os.path.join(BASEDIR, '/logs/app.log'),
                     format="%(asctime)s %(levelname)s %(message)s")
