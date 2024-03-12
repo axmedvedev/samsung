@@ -7,17 +7,8 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     FLASK_APP = 'app.py'
     SECRET_KEY = 'my_secret_key_mxUzRhivY5waFqt77ilzwyqYB0eTB40'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',
-                                             'sqlite:///' + os.path.join(BASEDIR, 'app.sqlite') + '?check_same_thread=False')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    MONGO = {
-        'db_name': os.environ.get('MONGO_DB', 'samsung'),
-        'host': os.environ.get('MONGO_HOST', '127.0.0.1'),
-        'port': int(os.environ.get('MONGO_PORT', 27017)),
-        'user': os.environ.get('MONGO_USER', 'root'),
-        'pwd': os.environ.get('MONGO_PWD', 'root')
-    }
+    MONGO_ENDPOINT = os.environ.get('MONGO_ENDPOINT', 'mongodb://127.0.0.1:27017')
 
 app = Flask(__name__)
 app.config.from_object(Config)

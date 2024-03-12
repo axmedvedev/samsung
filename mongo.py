@@ -3,11 +3,10 @@ from config import *
 
 class MongoDB(object):
     def __init__(self, **kwarg):
-        collection, config = list(map(lambda x: x[1], kwarg.items()))
-        db_name, host, port, user, pwd = list(map(lambda x: x[1], config.items()))
+        collection, endpoint = kwarg
         try:
-            self._client = MongoClient(f'mongodb://{user}:{pwd}@{host}:{port}')
-            self._collection = self._client[db_name][collection]
+            self._client = MongoClient(endpoint)
+            self._collection = self._client['samsung'][collection]
         except Exception as e:
             logging.error(f"[con] - {e}")
 

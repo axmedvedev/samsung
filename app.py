@@ -1,9 +1,7 @@
-from flask import Response, render_template, url_for, jsonify, request
+from flask import Response, render_template, url_for, request
 from mongo import MongoDB
 import requests
 from models import *
-from utils import *
-from bson import json_util
 import json
 
 with app.app_context():
@@ -68,43 +66,11 @@ with app.app_context():
             return f'{{"status": "error", "message": "{e}"}}'
 
 
-
-    #from Alchemy
-    @app.route('/api/slider/')
-    def sliders():
-        return jsonify(serializer(Slider.query.all()))
-
-    @app.route('/api/carousel/')
-    def carousel():
-        return jsonify(serializer(Carousel.query.all()))
-
-    @app.route('/api/main/')
-    def main():
-        return jsonify(compileData(serializer(Main.query
-                                              .join(PromoImage, Main.images, isouter=True)
-                                              .add_columns(PromoImage.image.label("image_name"))
-                                              .all())))
-
-    @app.route('/api/product/')
-    def product():
-        return jsonify(compileData(serializer(Product.query
-                                              .join(ProductImage, Product.images)
-                                              .add_columns(ProductImage.image.label("image_name"))
-                                              .all())))
-
-    @app.route('/api/promo/<string:target>/')
-    def promo_id_api(target):
-        return jsonify(compileData(serializer(Main.query
-                                  .join(PromoImage, Main.images, isouter=True)
-                                  .add_columns(PromoImage.image.label("image_name"))
-                                  .filter(Main.link.like(f"%promo/{target}%")).all())))
-
-
     #from MONGO
     @app.route('/api/v2/promo/')
     @app.route('/api/v2/promo/<string:target>/')
     def api_promo(target=None):
-        db = MongoDB(collection='promo', config=Config.MONGO)
+        db = MongoDB(collection='promo', endpoint=Config.MONGO_ENDPOINT)
         if target is None:
             data = db.get_all()
         else:
@@ -141,7 +107,7 @@ with app.app_context():
     @app.route('/api/v2/product/')
     @app.route('/api/v2/product/<string:target>/')
     def api_product(target=None):
-        db = MongoDB(collection='product', config=Config.MONGO)
+        db = MongoDB(collection='product', endpoint=Config.MONGO_ENDPOINT)
         if target is None:
             data = db.get_all()
         else:
@@ -153,7 +119,7 @@ with app.app_context():
     @app.route('/api/v2/page/')
     @app.route('/api/v2/page/<string:target>/')
     def api_page(target=None):
-        db = MongoDB(collection='page', config=Config.MONGO)
+        db = MongoDB(collection='page', endpoint=Config.MONGO_ENDPOINT)
         if target is None:
             data = db.get_all()
         else:
