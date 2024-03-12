@@ -2,12 +2,10 @@ from pymongo import MongoClient
 from config import *
 
 class MongoDB(object):
-    def __init__(self, **kwarg):
-        collection, endpoint = kwarg
+    def __init__(self, collection, endpoint):
         try:
             self._client = MongoClient(endpoint)
             print(endpoint)
-            print(kwarg)
             self._collection = self._client['samsung'][collection]
         except Exception as e:
             logging.error(f"[con] - {e}")
