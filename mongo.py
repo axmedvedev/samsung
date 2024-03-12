@@ -3,9 +3,9 @@ from config import *
 
 class MongoDB(object):
     def __init__(self, collection, endpoint):
+        print(endpoint)
         try:
             self._client = MongoClient(endpoint)
-            print(endpoint)
             self._collection = self._client['samsung'][collection]
         except Exception as e:
             logging.error(f"[con] - {e}")
