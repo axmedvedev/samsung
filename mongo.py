@@ -6,6 +6,8 @@ class MongoDB(object):
         collection, endpoint = kwarg
         try:
             self._client = MongoClient(endpoint)
+            print(endpoint)
+            print(kwarg)
             self._collection = self._client['samsung'][collection]
         except Exception as e:
             logging.error(f"[con] - {e}")
