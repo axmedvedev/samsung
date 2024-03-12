@@ -3,7 +3,6 @@ from config import *
 
 class MongoDB(object):
     def __init__(self, collection):
-        print(Config.MONGO_ENDPOINT)
         try:
             self._client = MongoClient(Config.MONGO_ENDPOINT)
             self._collection = self._client['samsung'][collection]
