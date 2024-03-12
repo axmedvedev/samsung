@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from config import Config
+from config import *
 
 class MongoDB(object):
     def __init__(self, collection):
