@@ -12,4 +12,4 @@ COPY /static/. /static_temp/
 
 COPY . .
 
-CMD sh -c "cp -R /static_temp/* /static/ && rm -r /static_temp/ && gunicorn -b 0.0.0.0:5000 app:app"
+CMD sh -c "if [ -d '/static_temp/' ]; then cp -R /static_temp/* /static/ && rm -r /static_temp/; fi && gunicorn -b 0.0.0.0:5000 app:app"
