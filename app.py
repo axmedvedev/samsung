@@ -1,8 +1,8 @@
 from flask import Response, render_template, url_for, request
 from mongo import MongoDB
 import requests
-from models import *
 import json
+from config import Config, app
 
 with app.app_context():
     #base routing
